@@ -1,0 +1,24 @@
+syntax = "proto3";
+package casesp;
+
+
+message Case {
+ string id = 1;
+ string name = 2;
+ string location = 3;
+ int32 age = 4;
+ string infectedtype = 5;
+ string state = 6;
+}
+
+message CaseReq {
+ Case case = 1;
+}
+
+message CaseRes {
+ Case case = 1;
+}
+
+service Insert {
+ rpc InsertCase (CaseReq) returns (CaseRes) {}
+}
