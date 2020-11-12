@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbit-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbit
+  template:
+    metadata:
+      labels:
+        app: rabbit
+    spec:
+      containers:
+      - name: golang-container
+        image: uhcorona/imggolang:1.0
+        ports:
+        - containerPort: 3000
+      - name: rabbit-containter
+        image: uhcorona/imgrabbit:1.0
+        ports:
+        - containerPort: 5672
+      - name: python-containter
+        image: uhcorona/imgpython:1.0
