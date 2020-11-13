@@ -77,7 +77,7 @@ func createCase(w http.ResponseWriter, r *http.Request) {
 	json.Unmarshal(reqBody, &newcase)
 	//var res = newCase(newcase)
 	log.Println("Name.", newcase.Name)
-	sendCase := pb.Case{Id: "0XsdJOk", Name: "hola", Location: "mundo", Age: 12, Infectedtype: "com", State: "sd"};
+	sendCase := pb.Case{Id: "0", Name: newcase.Name, Location: newcase.Location, Age: newcase.Age, Infectedtype: newcase.Infectedtype, State: newcase.State};
 	//sendCase.Name = newcase.Name;
 	//sendCase.Location = newcase.Location;
 	//sendCase.Age = newcase.Age;
