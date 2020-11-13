@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc
+  template:
+    metadata:
+      labels:
+        app: grpc
+    spec:
+      containers:
+      - name: go-container
+        image: golang:latest
+        ports:
+        - containerPort: 3000
+      containers:
+      - name: python-container
+        image: python:latest

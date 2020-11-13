@@ -1,5 +1,5 @@
-# we take the image of Python in the version 3.8.6
-FROM golang:latest
+# we take the image of Golang
+FROM golang
 
 # we set the directory to use inside container
 WORKDIR /go
@@ -13,7 +13,7 @@ RUN go get -u github.com/golang/protobuf/proto
 RUN go get -u github.com/golang/protobuf/protoc-gen-go
 RUN go get -u github.com/gorilla/mux
 
-# we open the port 4000
+# we open the port 3000
 EXPOSE 3000
 
 # we create a folder to mount and use to read the kernel modules

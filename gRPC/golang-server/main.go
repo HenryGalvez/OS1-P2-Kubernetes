@@ -18,7 +18,7 @@ import (
 	"google.golang.org/grpc"
 	//"google.golang.org/grpc/credentials"
 
-	pb "./casesp"
+	pb "./cases"
 )
 
 type casee struct {

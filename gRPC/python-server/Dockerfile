@@ -1,5 +1,5 @@
-# we take the image of Python in the version 3.8.6
-FROM python:3.8.6
+# we take the image of Python in the version 3
+FROM python:3
 
 # we update pip
 RUN pip install --upgrade pip
@@ -11,7 +11,7 @@ WORKDIR /api
 COPY . /api/
 
 # we install all necessary dependencies
-RUN pip install pymongo grpcio grpcio-tools
+RUN pip install pymongo grpcio grpcio-tools redis
 
 # we open the port 4000
 EXPOSE 4000
