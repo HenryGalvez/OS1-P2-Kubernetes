@@ -14,9 +14,9 @@ spec:
     spec:
       containers:
       - name: go-container
-        image: golang:latest
+        image: pixelcodegg/golang:latest
         ports:
         - containerPort: 3000
       containers:
       - name: python-container
-        image: python:latest
+        image: pixelcodegg/python:latest
