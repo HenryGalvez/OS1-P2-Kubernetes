@@ -8,8 +8,12 @@ import cases_pb2_grpc
 from concurrent import futures
 from pymongo import MongoClient
 from bson import json_util
+import redis
+from datetime import datetime
+import json
 
-mongo = MongoClient('mongodb://localhost:27017')
+mongo = MongoClient('mongodb://3.139.106.96:27017/')
+redi = redis.Redis(host='3.139.106.96', port=6379, db=0)
 
 
 class Cases(cases_pb2_grpc.InsertServicer):
@@ -26,8 +30,13 @@ class Cases(cases_pb2_grpc.InsertServicer):
             "infectedtype": case.infectedtype,
             "state": case.state
         }
-        id = mongo.cases.case.insert_one(new)
+        db = mongo.db
+        cases = db.cases
+        id = cases.insert_one(new)
         case.id = str(id.inserted_id)
+        now = datetime.now()
+        dt_string = now.strftime("%Y-%m-%d %H:%M:%S.%f")
+        redi.set(dt_string, str(new))
         print("id")
         print(str(id.inserted_id))
         return cases_pb2.CaseRes(case = case)
