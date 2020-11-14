@@ -118,6 +118,6 @@ func main() {
 	router.HandleFunc("/", indexRoute)
 	router.HandleFunc("/cases", createCase).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	log.Fatal(http.ListenAndServe(":5000", router))
 }
 

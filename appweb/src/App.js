@@ -5,7 +5,7 @@ import ChartistGraph from 'react-chartist'
 
 class App extends Component {
 
-  url_api = 'http://localhost:3000/'
+  url_api = 'http://35.238.105.200/'
 
   constructor() {
     super()

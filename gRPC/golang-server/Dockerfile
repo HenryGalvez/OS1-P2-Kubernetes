@@ -14,7 +14,7 @@ RUN go get -u github.com/golang/protobuf/protoc-gen-go
 RUN go get -u github.com/gorilla/mux
 
 # we open the port 3000
-EXPOSE 3000
+EXPOSE 5000
 
 # we create a folder to mount and use to read the kernel modules
 RUN mkdir -p /go
