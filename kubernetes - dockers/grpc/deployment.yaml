@@ -1,0 +1,22 @@
+metadata:
+  name: grpc-deployment
+  namespace: project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc
+  template:
+    metadata:
+      labels:
+        app: grpc
+    spec:
+      containers:
+      - name: grpc-python-container
+        image: uhcorona/imggrpcpython:1.0
+        ports:
+        - containerPort: 4000
+      - name: grpc-go-containter
+        image: uhcorona/imggrpcgo:1.0
+        ports:
+        - containerPort: 5000

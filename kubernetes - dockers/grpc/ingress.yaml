@@ -1,13 +1,14 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: rabbit-ingress
+  name: grpc-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
+  namespace: project
 spec:
   rules:
   - http:
       paths:
       - backend:
-          serviceName: rabbit-service
-          servicePort: 3000
+          serviceName: grpc-service
+          servicePort: 5000
