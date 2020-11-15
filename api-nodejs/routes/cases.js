@@ -2,8 +2,11 @@ var express = require('express');
 var router = express.Router();
 const cases = require('./models/Case');
 
+var async = require("async");
 var redis = require('redis');
-var client = redis.createClient(6379, "3.139.106.96");
+var client = redis.createClient({ port: 6379, host: "3.139.106.96", db: 0 });
+//const redisScan = require('redisscan');
+const ioredis = require('ioredis');
 
 
 /* GET users listing. */
@@ -45,17 +48,38 @@ router.get('/getCasesPerRange', async function (req, res, next) {
     res.status(200).json({ message: "Succesfully", data: s });
 });
 
-router.get('/getLast', async function (req, res, next) {
-
-
-    client.select(1, function (err, keys) {
+router.get('/getLast', async function (req, res) {
+    var jobs = [];
+    client.keys('*', function (err, keys) {
         if (err) return console.log(err);
-        console.log(keys)
-        for (var i = 0; i < keys.length; i++) {
-            console.log(keys[i]);
+        if (keys) {
+            async.map(keys, function (key, cb) {
+                client.get(key, function (error, value) {
+                    if (error) return cb(error);
+                    var job = {};
+                    job['key'] = new Date(key);
+                    job['value'] = value;
+                    cb(null, job);
+                });
+            }, function (error, results) {
+                if (error) return console.log(error);
+                //console.log(results);
+                results.sort((a, b) => a.key - b.key)
+                if (results.length > 0) {
+                    res.status(200).json({ message: "Succesfully", data: [JSON.parse(results[results.length - 1].value)] });
+                } else {
+                    res.status(200).json({ message: "Succesfully", data: [{ name: "", location: "", age: 0, infectedtype: "", state: "" }] });
+                }
+            });
         }
     });
-    res.status(200).json({ message: "Succesfully" });
+    /*client.keys('*', function (err, keys) {
+        //console.log(err);
+        //console.log(keys);
+        console.log(keys.sort((a, b) => a.fechas > b.fechas));
+
+    });*/
+    //res.status(200).json({ message: "Succesfully", data: true });
 });
 
 router.get('/getLastMongo', async function (req, res, next) {

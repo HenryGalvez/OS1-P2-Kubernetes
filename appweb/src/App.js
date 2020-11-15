@@ -69,18 +69,19 @@ class App extends Component {
       if (data) {
 
         var a = [0]
-        var l = ["1-10"]
+        var l = ["0-10"]
         let i = 1;
         let aux = i * 10;
         for (let index = 0; index < data.data.length; index++) {
           if (data.data[index]._id < aux) {
-            a[0] = a[0] + data.data[index].number;
+            a[i-1] = a[i-1] + data.data[index].number;
+            //i++;
           } else {
             while (data.data[index]._id > aux) {
               i++
               aux = i * 10;
               a.push(0);
-              l.push((aux - 9) + "-" + aux);
+              l.push((aux - 10) + "-" + aux);
             }
             //i++
             //a.push(0);
@@ -101,17 +102,16 @@ class App extends Component {
       }
     })
 
-    fetch(this.url_api + 'cases/getLastMongo').then(res => {
+    fetch(this.url_api + 'cases/getLast').then(res => {
       return res.json()
     }).then(data => {
       if (data) {
-
+        
         this.state.lastCase = data.data[0];
 
         this.setState({
           lastCase: this.state.lastCase
         })
-        console.log(data.data[0])
       }
     })
   }
